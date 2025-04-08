@@ -151,20 +151,49 @@ body {
 /* Info Section */
 .info-section {
     text-align: center;
-    margin: 2rem auto;
-    padding: 1rem;
+    margin: 1rem auto; /* Mengurangi margin dari 2rem ke 1rem */
+    padding: 0.5rem; /* Mengurangi padding dari 1rem ke 0.5rem */
     max-width: 800px;
 }
 
-.neon-text {
-    color: var(--accent-color);
-    text-shadow: var(--neon-glow);
-    margin-bottom: 1rem;
+.info-section h2 {
+    font-size: 1.2rem; /* Mengurangi ukuran font dari default */
+    margin-bottom: 0.5rem; /* Mengurangi jarak bawah */
+    letter-spacing: 1px; /* Sedikit spacing untuk tetap terlihat cyberpunk */
 }
 
 .info-text {
+    font-size: 0.9rem; /* Ukuran font lebih kecil */
+    line-height: 1.4; /* Jarak baris lebih ketat */
     color: var(--text-secondary);
-    line-height: 1.6;
+    padding: 0 1rem; /* Padding samping */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .info-section {
+        margin: 0.8rem auto;
+    }
+    
+    .info-section h2 {
+        font-size: 1.1rem;
+    }
+    
+    .info-text {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-section h2 {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .info-text {
+        font-size: 0.8rem;
+        padding: 0 0.5rem;
+    }
 }
 
 /* Category Cards */
