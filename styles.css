@@ -450,3 +450,59 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+/* Nav Brand Responsive */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(0 0 5px var(--accent-color));
+    transition: all 0.3s ease;
+}
+
+.store-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .logo {
+        height: 35px;
+    }
+    .store-name {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        height: 30px;
+    }
+    .store-name {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        height: 25px;
+    }
+    .store-name {
+        font-size: 1rem;
+    }
+    
+    .nav-brand {
+        gap: 0.5rem;
+    }
+}
