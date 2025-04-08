@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaivyStore - Cyberpunk Pricelist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="cyberpunk-theme">
+        <!-- Navbar -->
+        <nav class="cyberpunk-nav">
+            <div class="nav-brand">
+                <img src="assets/logo.png" alt="KaivyStore Logo" class="logo">
+                <span class="store-name">KaivyStore</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="order-btn">Order</a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Carousel -->
+            <div class="cyber-carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="assets/carousel1.jpg" alt="Promo 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/carousel2.jpg" alt="Promo 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/carousel3.jpg" alt="Promo 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/carousel4.jpg" alt="Promo 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/carousel5.jpg" alt="Promo 5">
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="moveCarousel(-1)">❮</button>
+                <button class="carousel-control next" onclick="moveCarousel(1)">❯</button>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <h2 class="neon-text">HOW TO CHECK PRICES</h2>
+                <p class="info-text">Select a category below to view our prices. Scroll horizontally to see more categories.</p>
+            </div>
+
+            <!-- Category Cards -->
+            <div class="category-container">
+                <button class="scroll-btn left" onclick="scrollCategories(-1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="categories" id="categories">
+                    <!-- Categories will be loaded via AJAX -->
+                </div>
+                <button class="scroll-btn right" onclick="scrollCategories(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Price Table -->
+            <div class="price-table-container">
+                <h3 class="selected-category neon-text" id="selected-category">Select a category to view prices</h3>
+                <div class="table-wrapper">
+                    <table class="cyber-table" id="price-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table content will be loaded via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="cyber-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CONTACT US</h3>
+                    <p>Email: contact@kaivystore.com</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>&copy; 2023 KaivyStore. All rights reserved.</p>
+                    <p>Cyberpunk themed digital store</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
