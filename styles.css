@@ -2,11 +2,11 @@
 :root {
     --primary-bg: #0a0a0a;
     --secondary-bg: #121212;
-    --accent-color: #ff00aa;
-    --accent-secondary: #ff66cc;
+    --accent-color: #ff85a2; /* Soft pink instead of #ff00aa */
+    --accent-secondary: #ffb3c6; /* Lighter soft pink */
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
-    --neon-glow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color);
+    --neon-glow: 0 0 10px rgba(255, 133, 162, 0.7), 0 0 20px rgba(255, 133, 162, 0.5), 0 0 30px rgba(255, 133, 162, 0.3);
 }
 
 * {
@@ -261,52 +261,28 @@ body {
     text-shadow: 0 0 5px black;
 }
 
-/* Price Table */
-.price-table-container {
-    margin: 2rem auto;
-    max-width: 1200px;
-    padding: 0 1rem;
+/* Price Table Responsive */
+.cyber-table td:nth-child(3) {
+    white-space: nowrap; /* Mencegah enter pada harga */
 }
 
-.selected-category {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-}
-
-.table-wrapper {
-    overflow-x: auto;
-    border: 1px solid var(--accent-color);
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(255, 0, 170, 0.3);
-}
-
-.cyber-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: var(--secondary-bg);
-}
-
-.cyber-table th {
-    background-color: var(--accent-color);
-    color: black;
-    padding: 1rem;
-    text-align: left;
-    font-weight: bold;
-}
-
-.cyber-table td {
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid rgba(255, 0, 170, 0.2);
-    color: var(--text-secondary);
-}
-
-.cyber-table tr:last-child td {
-    border-bottom: none;
-}
-
-.cyber-table tr:hover {
-    background-color: rgba(255, 0, 170, 0.1);
+@media (max-width: 768px) {
+    .cyber-table {
+        font-size: 0.9rem;
+    }
+    
+    .cyber-table td {
+        padding: 0.5rem;
+    }
+    
+    .cyber-table td:nth-child(3) {
+        text-align: right;
+        font-family: 'Courier New', monospace; /* Memastikan angka sejajar */
+    }
+    
+    .cyber-table th:nth-child(3) {
+        text-align: right;
+    }
 }
 
 /* Footer */
