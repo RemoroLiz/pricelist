@@ -7,13 +7,14 @@
     --text-primary: #ffffff;
     --text-secondary: #cccccc;
     --neon-glow: 0 0 10px rgba(255, 133, 162, 0.7), 0 0 20px rgba(255, 133, 162, 0.5), 0 0 30px rgba(255, 133, 162, 0.3);
+    --font-primary: 'Poppins', sans-serif;
 }
 
 * {
-    margin: 0;
+     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-primary); /* Changed from Courier New */
 }
 
 body {
