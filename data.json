@@ -2,7 +2,7 @@
     "categories": [
         {
             "name": "Netflix",
-            "icon": "netflix-icon.png",
+            "icon": "netflix.png",
             "items": [
                 {
                     "name": "Netflix Premium 1 Month",
@@ -18,7 +18,7 @@
         },
         {
             "name": "Viu",
-            "icon": "viu-icon.png",
+            "icon": "viu.png",
             "items": [
                 {
                     "name": "Viu Premium 1 Month",
@@ -29,7 +29,7 @@
         },
         {
             "name": "Loklok",
-            "icon": "loklok-icon.png",
+            "icon": "loklok.png",
             "items": [
                 {
                     "name": "Loklok VIP 1 Month",
@@ -40,7 +40,7 @@
         },
         {
             "name": "Canva",
-            "icon": "canva-icon.png",
+            "icon": "canva.png",
             "items": [
                 {
                     "name": "Canva Pro 1 Month",
@@ -51,7 +51,7 @@
         },
         {
             "name": "Mobile Legends",
-            "icon": "ml-icon.png",
+            "icon": "mobilelegends.png",
             "items": [
                 {
                     "name": "86 Diamonds",
@@ -62,7 +62,7 @@
         },
         {
             "name": "Free Fire",
-            "icon": "ff-icon.png",
+            "icon": "ff.png",
             "items": [
                 {
                     "name": "70 Diamonds",
