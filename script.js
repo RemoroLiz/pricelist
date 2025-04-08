@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+// Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.cyberpunk-nav') && navLinks) {
+            navLinks.classList.remove('active');
+        }
+    });
+
     // Load data from JSON file
     loadData();
     
