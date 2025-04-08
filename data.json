@@ -1,0 +1,115 @@
+{
+    "categories": [
+        {
+            "name": "Netflix",
+            "icon": "netflix-icon.png",
+            "items": [
+                {
+                    "name": "Netflix Premium 1 Month",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 45,000"
+                },
+                {
+                    "name": "Netflix Premium 3 Months",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 120,000"
+                },
+                {
+                    "name": "Netflix Standard 1 Month",
+                    "description": "HD, 2 screens",
+                    "price": "Rp 35,000"
+                }
+            ]
+        },
+        {
+            "name": "Viu",
+            "icon": "viu-icon.png",
+            "items": [
+                {
+                    "name": "Viu Premium 1 Month",
+                    "description": "No ads, HD quality",
+                    "price": "Rp 30,000"
+                },
+                {
+                    "name": "Viu Premium 3 Months",
+                    "description": "No ads, HD quality",
+                    "price": "Rp 80,000"
+                }
+            ]
+        },
+        {
+            "name": "Loklok",
+            "icon": "loklok-icon.png",
+            "items": [
+                {
+                    "name": "Loklok VIP 1 Month",
+                    "description": "Full access to all content",
+                    "price": "Rp 25,000"
+                },
+                {
+                    "name": "Loklok VIP 6 Months",
+                    "description": "Full access to all content",
+                    "price": "Rp 120,000"
+                }
+            ]
+        },
+        {
+            "name": "Canva",
+            "icon": "canva-icon.png",
+            "items": [
+                {
+                    "name": "Canva Pro 1 Month",
+                    "description": "Full access to Pro features",
+                    "price": "Rp 40,000"
+                },
+                {
+                    "name": "Canva Pro 1 Year",
+                    "description": "Full access to Pro features",
+                    "price": "Rp 350,000"
+                }
+            ]
+        },
+        {
+            "name": "Mobile Legends",
+            "icon": "ml-icon.png",
+            "items": [
+                {
+                    "name": "86 Diamonds",
+                    "description": "Mobile Legends",
+                    "price": "Rp 20,000"
+                },
+                {
+                    "name": "172 Diamonds",
+                    "description": "Mobile Legends",
+                    "price": "Rp 40,000"
+                },
+                {
+                    "name": "257 Diamonds",
+                    "description": "Mobile Legends",
+                    "price": "Rp 60,000"
+                }
+            ]
+        },
+        {
+            "name": "Free Fire",
+            "icon": "ff-icon.png",
+            "items": [
+                {
+                    "name": "70 Diamonds",
+                    "description": "Free Fire",
+                    "price": "Rp 10,000"
+                },
+                {
+                    "name": "140 Diamonds",
+                    "description": "Free Fire",
+                    "price": "Rp 20,000"
+                },
+                {
+                    "name": "355 Diamonds",
+                    "description": "Free Fire",
+                    "price": "Rp 50,000"
+                }
+            ]
+        }
+    ]
+}
