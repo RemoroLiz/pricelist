@@ -17,6 +17,37 @@
             ]
         },
         {
+            "name": "Netflix",
+            "icon": "netflix.png",
+            "items": [
+                {
+                    "name": "Netflix Premium 1 Month",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 45,000"
+                },
+                {
+                    "name": "Netflix Premium 3 Months",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 120,000"
+                }
+            ]
+        },{
+            "name": "Netflix",
+            "icon": "netflix.png",
+            "items": [
+                {
+                    "name": "Netflix Premium 1 Month",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 45,000"
+                },
+                {
+                    "name": "Netflix Premium 3 Months",
+                    "description": "4K UHD, 4 screens",
+                    "price": "Rp 120,000"
+                }
+            ]
+        },
+        {
             "name": "Viu",
             "icon": "viu.png",
             "items": [
