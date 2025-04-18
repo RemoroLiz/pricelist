@@ -954,7 +954,7 @@
         }
 
         function sendWhatsAppMessage(item) {
-            const phoneNumber = '089656737562';
+            const phoneNumber = '+6289656737562';
             const message = `Halo KaivyStore, saya ingin memesan:\n\n*Item Name*: ${item.name}\n*Description*: ${item.description}\n*Price*: ${item.price}\n\nApakah item ini tersedia?`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
