@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaivyStore</title>
+    <style>
+        /* Cyberpunk Theme - Black & Pink */
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #121212;
+            --accent-color: #ff85a2; /* Soft pink instead of #ff00aa */
+            --accent-secondary: #ffb3c6; /* Lighter soft pink */
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --neon-glow: 0 0 10px rgba(255, 133, 162, 0.7), 0 0 20px rgba(255, 133, 162, 0.5), 0 0 30px rgba(255, 133, 162, 0.3);
+            --font-primary: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-primary); /* Changed from Courier New */
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .cyberpunk-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(5px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 5px var(--accent-color));
+        }
+
+        .store-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 5px rgba(255, 0, 170, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .order-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent-color);
+        }
+
+        .order-btn:hover {
+            background-color: transparent;
+            color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .social-icon {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--accent-color);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Carousel Styles */
+        .cyber-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+            box-shadow: var(--neon-glow);
+            border-radius: 8px;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--accent-color);
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-control:hover {
+            background-color: var(--accent-color);
+            color: black;
+        }
+
+        .prev {
+            left: 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 8px 0 0 8px;
+        }
+
+        /* Info Section */
+        .info-section {
+            text-align: center;
+            margin: 1rem auto; /* Mengurangi margin dari 2rem ke 1rem */
+            padding: 0.5rem; /* Mengurangi padding dari 1rem ke 0.5rem */
+            max-width: 800px;
+        }
+
+        .info-section h2 {
+            font-size: 1.2rem; /* Mengurangi ukuran font dari default */
+            margin-bottom: 0.5rem; /* Mengurangi jarak bawah */
+            letter-spacing: 1px; /* Sedikit spacing untuk tetap terlihat cyberpunk */
+        }
+
+        .info-text {
+            font-size: 0.9rem; /* Ukuran font lebih kecil */
+            line-height: 1.4; /* Jarak baris lebih ketat */
+            color: var(--text-secondary);
+            padding: 0 1rem; /* Padding samping */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .info-section {
+                margin: 0.8rem auto;
+            }
+            
+            .info-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .info-text {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info-section h2 {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .info-text {
+                font-size: 0.8rem;
+                padding: 0 0.5rem;
+            }
+        }
+
+        /* Category Cards */
+        .category-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            max-width: 1200px;
+            position: relative;
+        }
+
+        .scroll-btn {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 5;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+        }
+
+        .scroll-btn:hover {
+            background-color: var(--accent-color);
+            color: black;
+            box-shadow: var(--neon-glow);
+        }
+
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1rem;
+            padding: 1rem 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .category-card {
+            min-width: 150px;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3));
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+            border-color: var(--accent-color);
+        }
+
+        .category-card.active {
+            border-color: var(--accent-color);
+            box-shadow: var(--neon-glow);
+        }
+
+        .category-name {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px black;
+        }
+
+        /* Price Table Container */
+        .price-table-container {
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Ini yang membuat konten di tengah */
+        }
+
+        /* Table Wrapper */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 133, 162, 0.3);
+            width: 100%;
+            max-width: 900px; /* Lebar maksimal tabel */
+        }
+
+        /* Table Styles */
+        .cyber-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--secondary-bg);
+            margin: 0 auto; /* Untuk memastikan tabel di tengah wrapper */
+        }
+
+        /* Updated Table Styles */
+        .cyber-table th, .cyber-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .cyber-table th {
+            background-color: rgba(255, 133, 162, 0.1);
+            color: var(--accent-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .cyber-table tr:hover {
+            background-color: rgba(255, 133, 162, 0.05);
+        }
+
+        .cyber-table td {
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cyber-table td:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 769px) {
+            .price-table-container {
+                padding: 0 2rem;
+            }
+            
+            .table-wrapper {
+                width: 90%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .table-wrapper {
+                width: 80%;
+            }
+        }
+
+        /* Price Table Responsive */
+        .cyber-table td:nth-child(3) {
+            white-space: nowrap; /* Mencegah enter pada harga */
+        }
+
+        @media (max-width: 768px) {
+            .cyber-table {
+                font-size: 0.9rem;
+            }
+            
+            .cyber-table td {
+                padding: 0.5rem;
+            }
+            
+            .cyber-table td:nth-child(3) {
+                text-align: right;
+                font-family: 'Courier New', monospace; /* Memastikan angka sejajar */
+            }
+            
+            .cyber-table th:nth-child(3) {
+                text-align: right;
+            }
+        }
+
+        /* Footer */
+        .cyber-footer {
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), url('assets/footer-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 3rem 1rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--accent-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cyberpunk-nav {
+                padding: 1rem;
+            }
+
+            .store-name {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .category-card {
+                min-width: 120px;
+                height: 150px;
+            }
+
+            .cyber-table th, .cyber-table td {
+                padding: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-brand {
+                gap: 0.5rem;
+            }
+
+            .logo {
+                height: 30px;
+            }
+
+            .store-name {
+                font-size: 1rem;
+            }
+
+            .order-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            .social-icon {
+                font-size: 1rem;
+            }
+
+            .category-card {
+                min-width: 100px;
+                height: 120px;
+            }
+
+            .category-name {
+                font-size: 0.8rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Loading Indicator */
+        .loading-categories {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            min-width: 100%;
+            padding: 2rem;
+        }
+
+        /* Error State */
+        .error-message {
+            color: #ff5555;
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid #ff5555;
+            border-radius: 8px;
+            margin: 1rem;
+        }
+
+        /* Fallback for missing icons */
+        .category-card {
+            background-color: var(--secondary-bg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Nav Brand Responsive */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 5px var(--accent-color));
+            transition: all 0.3s ease;
+        }
+
+        .store-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 5px rgba(255, 133, 162, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 992px) {
+            .logo {
+                height: 35px;
+            }
+            .store-name {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                height: 30px;
+            }
+            .store-name {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 25px;
+            }
+            .store-name {
+                font-size: 1rem;
+            }
+            
+            .nav-brand {
+                gap: 0.5rem;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: var(--primary-bg);
+                flex-direction: column;
+                width: 200px;
+                padding: 1rem;
+                border: 1px solid var(--accent-color);
+                border-radius: 0 0 0 8px;
+                box-shadow: var(--neon-glow);
+                display: none;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links .order-btn {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            
+            .nav-links .social-icon {
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+        }
+
+        /* Neon Text */
+        .neon-text {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyberpunk-theme">
+        <!-- Navbar -->
+        <nav class="cyberpunk-nav">
+            <div class="nav-brand">
+                <img src="assets/logo.png" alt="KaivyStore Logo" class="logo">
+                <span class="store-name">KaivyStore</span>
+            </div>
+            
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="order-btn">Order</a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Carousel -->
+            <div class="cyber-carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="assets/netflix.png" alt="Promo 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/netflix.png" alt="Promo 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/netflix.png" alt="Promo 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/netflix.png" alt="Promo 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/netflix.png" alt="Promo 5">
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="moveCarousel(-1)">❮</button>
+                <button class="carousel-control next" onclick="moveCarousel(1)">❯</button>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <h2 class="neon-text">HOW TO CHECK PRICES</h2>
+                <p class="info-text">Select a category below to view our prices. Scroll horizontally to see more categories.</p>
+            </div>
+
+            <!-- Category Cards -->
+            <div class="category-container">
+                <button class="scroll-btn left" onclick="scrollCategories(-1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="categories" id="categories">
+                    <!-- Loading indicator -->
+                    <div class="loading-categories">
+                        <i class="fas fa-spinner fa-spin"></i> Loading categories...
+                    </div>
+                </div>
+                <button class="scroll-btn right" onclick="scrollCategories(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Price Table -->
+            <div class="price-table-container">
+                <h3 class="selected-category neon-text" id="selected-category">Select a category to view prices</h3>
+                <div class="table-wrapper">
+                    <table class="cyber-table" id="price-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table content will be loaded via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="cyber-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CONTACT US</h3>
+                    <p>Email: contact@kaivystore.com</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>&copy; 2023 KaivyStore. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (mobileMenuToggle && navLinks) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.cyberpunk-nav') && navLinks) {
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            // Load data from JSON file
+            loadData();
+            
+            // Initialize carousel
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            if (slides.length > 0) {
+                showSlide(currentSlide);
+                
+                // Auto-rotate carousel
+                setInterval(() => {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                }, 5000);
+            }
+        });
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                
+                // Populate categories
+                const categoriesContainer = document.getElementById('categories');
+                if (!categoriesContainer) {
+                    console.error('Categories container not found');
+                    return;
+                }
+                
+                categoriesContainer.innerHTML = '';
+                
+                data.categories.forEach((category, index) => {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'category-card';
+                    categoryCard.style.backgroundImage = `url(assets/${category.icon})`;
+                    categoryCard.innerHTML = `<div class="category-name">${category.name}</div>`;
+                    
+                    categoryCard.addEventListener('click', () => {
+                        // Remove active class from all cards
+                        document.querySelectorAll('.category-card').forEach(card => {
+                            card.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked card
+                        categoryCard.classList.add('active');
+                        
+                        // Update selected category title
+                        const selectedCategoryElement = document.getElementById('selected-category');
+                        if (selectedCategoryElement) {
+                            selectedCategoryElement.textContent = `${category.name} Prices`;
+                        }
+                        
+                        // Populate price table
+                        populatePriceTable(category.items);
+                    });
+                    
+                    // Activate first category by default
+                    if (index === 0) {
+                        categoryCard.classList.add('active');
+                        const selectedCategoryElement = document.getElementById('selected-category');
+                        if (selectedCategoryElement) {
+                            selectedCategoryElement.textContent = `${category.name} Prices`;
+                        }
+                        populatePriceTable(category.items);
+                    }
+                    
+                    categoriesContainer.appendChild(categoryCard);
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+                // Fallback data if JSON fails to load
+                loadFallbackData();
+            }
+        }
+
+        function loadFallbackData() {
+            const fallbackData = {
+                categories: [
+                    {
+                        "name": "Netflix",
+                        "icon": "netflix-icon.png",
+                        "items": [
+                            {"name": "Netflix Premium 1 Month", "description": "4K UHD, 4 screens", "price": "Rp 45,000"}
+                        ]
+                    },
+                    {
+                        "name": "Viu",
+                        "icon": "viu-icon.png",
+                        "items": [
+                            {"name": "Viu Premium 1 Month", "description": "No ads, HD quality", "price": "Rp 30,000"}
+                        ]
+                    }
+                ]
+            };
+            
+            // Use the same population logic with fallback data
+            const categoriesContainer = document.getElementById('categories');
+            if (categoriesContainer) {
+                categoriesContainer.innerHTML = '';
+                
+                fallbackData.categories.forEach((category, index) => {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'category-card';
+                    categoryCard.style.backgroundImage = `url(assets/${category.icon})`;
+                    categoryCard.innerHTML = `<div class="category-name">${category.name}</div>`;
+                    
+                    categoryCard.addEventListener('click', () => {
+                        document.querySelectorAll('.category-card').forEach(card => {
+                            card.classList.remove('active');
+                        });
+                        categoryCard.classList.add('active');
+                        
+                        const selectedCategoryElement = document.getElementById('selected-category');
+                        if (selectedCategoryElement) {
+                            selectedCategoryElement.textContent = `${category.name} Prices`;
+                        }
+                        populatePriceTable(category.items);
+                    });
+                    
+                    if (index === 0) {
+                        categoryCard.classList.add('active');
+                        const selectedCategoryElement = document.getElementById('selected-category');
+                        if (selectedCategoryElement) {
+                            selectedCategoryElement.textContent = `${category.name} Prices`;
+                        }
+                        populatePriceTable(category.items);
+                    }
+                    
+                    categoriesContainer.appendChild(categoryCard);
+                });
+            }
+        }
+
+        function populatePriceTable(items) {
+            const tableBody = document.querySelector('#price-table tbody');
+            if (!tableBody) {
+                console.error('Price table body not found');
+                return;
+            }
+            
+            tableBody.innerHTML = '';
+            
+            if (!items || items.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="3" style="text-align: center;">No items available</td>`;
+                tableBody.appendChild(row);
+                return;
+            }
+            
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name || 'N/A'}</td>
+                    <td>${item.description || 'No description'}</td>
+                    <td>${item.price || 'Rp 0'}</td>
+                `;
+                
+                // Add click event to each row
+                row.addEventListener('click', () => {
+                    sendWhatsAppMessage(item);
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function sendWhatsAppMessage(item) {
+            const phoneNumber = '089656737562';
+            const message = `Halo KaivyStore, saya ingin memesan:\n\n*Item Name*: ${item.name}\n*Description*: ${item.description}\n*Price*: ${item.price}\n\nApakah item ini tersedia?`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function showSlide(index) {
+            const carouselInner = document.querySelector('.carousel-inner');
+            if (carouselInner) {
+                carouselInner.style.transform = `translateX(-${index * 100}%)`;
+            }
+        }
+
+        function moveCarousel(direction) {
+            const slides = document.querySelectorAll('.carousel-item');
+            if (slides.length === 0) return;
+            
+            let currentSlide = 0;
+            const carouselInner = document.querySelector('.carousel-inner');
+            if (carouselInner && carouselInner.style.transform) {
+                currentSlide = parseInt(carouselInner.style.transform.split('-')[1]) / 100 || 0;
+            }
+            
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            
+            showSlide(currentSlide);
+        }
+
+        function scrollCategories(direction) {
+            const categories = document.querySelector('.categories');
+            if (!categories) return;
+            
+            const scrollAmount = 200;
+            categories.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
