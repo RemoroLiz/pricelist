@@ -644,59 +644,61 @@
         }
 
         .store-name {
-        font-size: 1.5rem;
-        font-weight: bold;
-        background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 0 5px var(--accent-color), 
-                     0 0 10px var(--accent-color), 
-                     0 0 20px var(--accent-color);
-        animation: neon-flicker 1.5s infinite alternate;
-        position: relative;
-        display: inline-block;
-        }
-        
-        @keyframes neon-flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 5px var(--accent-color),
-                             0 0 10px var(--accent-color),
-                             0 0 20px var(--accent-color),
-                             0 0 40px var(--accent-secondary),
-                             0 0 80px var(--accent-secondary);
-            }
-            20%, 24%, 55% {
-                text-shadow: 0 0 2px var(--primary-bg),
-                             0 0 5px var(--primary-bg),
-                             0 0 10px var(--primary-bg);
-            }
-        }
-        
-        /* Untuk efek tambahan */
-        .store-name::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--accent-color);
-            z-index: -1;
-            filter: blur(15px);
-            opacity: 0.7;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 0.9;
-            }
-        }
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 5px rgba(255, 133, 162, 0.3),
+                 0 0 10px rgba(255, 133, 162, 0.3),
+                 0 0 20px rgba(255, 133, 162, 0.2);
+    animation: smooth-pulse 4s infinite ease-in-out;
+    position: relative;
+    display: inline-block;
+}
 
+@keyframes smooth-pulse {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 133, 162, 0.3),
+                     0 0 10px rgba(255, 133, 162, 0.3),
+                     0 0 20px rgba(255, 133, 162, 0.2);
+        opacity: 0.8;
+    }
+    50% {
+        text-shadow: 0 0 10px rgba(255, 133, 162, 0.6),
+                     0 0 20px rgba(255, 133, 162, 0.5),
+                     0 0 30px rgba(255, 133, 162, 0.4),
+                     0 0 40px rgba(255, 179, 198, 0.3);
+        opacity: 1;
+    }
+}
+
+.store-name::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0.4;
+    border-radius: 10px;
+    animation: glow-pulse 4s infinite ease-in-out alternate;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
         /* Neon Text */
         .neon-text {
             color: var(--accent-color);
