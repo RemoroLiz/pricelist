@@ -643,6 +643,60 @@
             }
         }
 
+        .store-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 5px var(--accent-color), 
+                     0 0 10px var(--accent-color), 
+                     0 0 20px var(--accent-color);
+        animation: neon-flicker 1.5s infinite alternate;
+        position: relative;
+        display: inline-block;
+        }
+        
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 5px var(--accent-color),
+                             0 0 10px var(--accent-color),
+                             0 0 20px var(--accent-color),
+                             0 0 40px var(--accent-secondary),
+                             0 0 80px var(--accent-secondary);
+            }
+            20%, 24%, 55% {
+                text-shadow: 0 0 2px var(--primary-bg),
+                             0 0 5px var(--primary-bg),
+                             0 0 10px var(--primary-bg);
+            }
+        }
+        
+        /* Untuk efek tambahan */
+        .store-name::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--accent-color);
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+
         /* Neon Text */
         .neon-text {
             color: var(--accent-color);
