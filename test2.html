@@ -680,51 +680,51 @@
         /* Neon Text */
         .neon-text {
             color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color), 
-                         0 0 10px var(--accent-color),
-                         0 0 20px rgba(255, 133, 162, 0.5);
-            animation: neon-flicker 3s infinite alternate;
+            text-shadow: 0 0 3px var(--accent-color), 
+                         0 0 6px rgba(255, 133, 162, 0.5),
+                         0 0 12px rgba(255, 133, 162, 0.3);
+            animation: neon-flicker 6s infinite alternate;
             position: relative;
             display: inline-block;
         }
-
+        
         @keyframes neon-flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 0 0 5px var(--accent-color), 
-                             0 0 10px var(--accent-color),
-                             0 0 20px rgba(255, 133, 162, 0.5);
-                opacity: 0.9;
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 72%, 100% {
+                text-shadow: 0 0 3px var(--accent-color),
+                             0 0 6px rgba(255, 133, 162, 0.5),
+                             0 0 12px rgba(255, 133, 162, 0.3);
+                opacity: 0.8;
             }
-            20%, 24%, 55% {
+            20%, 21.999%, 63%, 63.999%, 65%, 71.999% {
                 text-shadow: 0 0 2px var(--accent-color),
-                             0 0 5px var(--accent-color);
-                opacity: 0.7;
+                             0 0 4px rgba(255, 133, 162, 0.4);
+                opacity: 0.6;
             }
         }
-
+        
         .neon-text::before {
             content: '';
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
             background: linear-gradient(to right, var(--accent-color), var(--accent-secondary));
             z-index: -1;
-            filter: blur(10px);
-            opacity: 0.3;
-            border-radius: 10px;
-            animation: neon-glow-pulse 3s infinite ease-in-out alternate;
+            filter: blur(8px);
+            opacity: 0.15;
+            border-radius: 6px;
+            animation: neon-glow-pulse 6s infinite ease-in-out alternate;
         }
-
+        
         @keyframes neon-glow-pulse {
             0%, 100% {
-                opacity: 0.2;
-                transform: scale(0.95);
+                opacity: 0.1;
+                transform: scale(0.98);
             }
             50% {
-                opacity: 0.4;
-                transform: scale(1.05);
+                opacity: 0.2;
+                transform: scale(1.02);
             }
         }
 
