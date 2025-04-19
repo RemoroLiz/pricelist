@@ -976,28 +976,189 @@
         </div>
     </div>
 
-    <script>
+       <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Load data from JSON file
-            loadData();
-            
             // Initialize carousel
+            initCarousel();
+            
+            // Load data
+            loadData();
+        });
+
+        // Global variables
+        let selectedItem = null;
+        let whatsappUrl = '';
+        let categoriesData = [];
+
+        // Initialize carousel
+        function initCarousel() {
             let currentSlide = 0;
             const slides = document.querySelectorAll('.carousel-item');
             if (slides.length > 0) {
                 showSlide(currentSlide);
                 
-                // Auto-rotate carousel
                 setInterval(() => {
                     currentSlide = (currentSlide + 1) % slides.length;
                     showSlide(currentSlide);
                 }, 5000);
             }
-        });
+        }
 
-        // Global variables for selected item
-        let selectedItem = null;
-        let whatsappUrl = '';
+        // Load data from data.json
+        async function loadData() {
+            try {
+                showLoadingState();
+                
+                const response = await fetch('data.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (!data.categories || !Array.isArray(data.categories)) {
+                    throw new Error('Invalid data format: categories array not found');
+                }
+                
+                categoriesData = data.categories;
+                renderCategories();
+                
+                // Load first category by default
+                if (categoriesData.length > 0) {
+                    loadCategoryItems(0);
+                }
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showErrorState();
+                // You can still load fallback data here if needed
+                // loadFallbackData();
+            }
+        }
+
+        // Show loading state
+        function showLoadingState() {
+            const categoriesContainer = document.getElementById('categories');
+            if (categoriesContainer) {
+                categoriesContainer.innerHTML = `
+                    <div class="loading-container">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Memuat kategori...</span>
+                    </div>
+                `;
+            }
+            
+            const tableBody = document.querySelector('#price-table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="loading-text">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Memuat data produk...
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Show error state
+        function showErrorState() {
+            const categoriesContainer = document.getElementById('categories');
+            if (categoriesContainer) {
+                categoriesContainer.innerHTML = `
+                    <div class="error-container">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Gagal memuat kategori. Silakan refresh halaman.</span>
+                    </div>
+                `;
+            }
+            
+            const tableBody = document.querySelector('#price-table tbody');
+            if (tableBody) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="error-text">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Gagal memuat data produk.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Render categories
+        function renderCategories() {
+            const categoriesContainer = document.getElementById('categories');
+            if (!categoriesContainer) return;
+            
+            categoriesContainer.innerHTML = '';
+            
+            categoriesData.forEach((category, index) => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.style.backgroundImage = `url(assets/${category.icon || 'default-icon.png'})`;
+                categoryCard.innerHTML = `<div class="category-name">${category.name}</div>`;
+                
+                categoryCard.addEventListener('click', () => {
+                    // Set active category
+                    setActiveCategory(index);
+                    // Load items for this category
+                    loadCategoryItems(index);
+                });
+                
+                categoriesContainer.appendChild(categoryCard);
+            });
+        }
+
+        // Set active category
+        function setActiveCategory(index) {
+            document.querySelectorAll('.category-card').forEach((card, i) => {
+                if (i === index) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+            
+            const selectedCategoryElement = document.getElementById('selected-category');
+            if (selectedCategoryElement && categoriesData[index]) {
+                selectedCategoryElement.textContent = `${categoriesData[index].name} - Daftar Harga`;
+            }
+        }
+
+        // Load items for a category
+        function loadCategoryItems(categoryIndex) {
+            const tableBody = document.querySelector('#price-table tbody');
+            if (!tableBody) return;
+            
+            if (!categoriesData[categoryIndex] || !categoriesData[categoryIndex].items) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="no-items">Tidak ada produk tersedia</td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            const items = categoriesData[categoryIndex].items;
+            tableBody.innerHTML = '';
+            
+            items.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name || 'N/A'}</td>
+                    <td>${item.description || 'Tidak ada deskripsi'}</td>
+                    <td>${item.price || 'Rp 0'}</td>
+                `;
+                
+                row.addEventListener('click', () => {
+                    showConfirmationModal(item);
+                });
+                
+                tableBody.appendChild(row);
+            });
+        }
 
         // Show confirmation modal
         function showConfirmationModal(item) {
@@ -1005,30 +1166,25 @@
             const modal = document.getElementById('confirmationModal');
             const modalItemInfo = document.getElementById('modalItemInfo');
             
-            // Format WhatsApp message
             const phoneNumber = '+6289656737562';
-            const message = `Halo Kak Kai!, Mau pesannn :\n\n*Item Name*: ${item.name}\n*Description*: ${item.description}\n*Price*: ${item.price}\n\nApakah item ini tersedia?`;
+            const message = `Halo KaivyStore, saya ingin memesan:\n\n*Produk*: ${item.name}\n*Deskripsi*: ${item.description}\n*Harga*: ${item.price}\n\nApakah produk ini tersedia?`;
             whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             
-            // Fill item info in modal
             modalItemInfo.innerHTML = `
-                <p><strong>Nama Item:</strong> ${item.name}</p>
+                <p><strong>Produk:</strong> ${item.name}</p>
                 <p><strong>Deskripsi:</strong> ${item.description}</p>
                 <p><strong>Harga:</strong> ${item.price}</p>
             `;
             
-            // Show modal
             modal.classList.add('active');
             
-            // Add button event listeners
             document.getElementById('cancelBtn').onclick = closeModal;
             document.getElementById('confirmBtn').onclick = proceedToWhatsApp;
         }
 
         // Close modal
         function closeModal() {
-            const modal = document.getElementById('confirmationModal');
-            modal.classList.remove('active');
+            document.getElementById('confirmationModal').classList.remove('active');
             selectedItem = null;
             whatsappUrl = '';
         }
@@ -1039,168 +1195,6 @@
                 window.open(whatsappUrl, '_blank');
             }
             closeModal();
-        }
-
-        // Close modal when clicking outside
-        document.getElementById('confirmationModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Load data from JSON
-        async function loadData() {
-            try {
-                const response = await fetch('data.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                
-                // Populate categories
-                const categoriesContainer = document.getElementById('categories');
-                if (!categoriesContainer) {
-                    console.error('Categories container not found');
-                    return;
-                }
-                
-                categoriesContainer.innerHTML = '';
-                
-                data.categories.forEach((category, index) => {
-                    const categoryCard = document.createElement('div');
-                    categoryCard.className = 'category-card';
-                    categoryCard.style.backgroundImage = `url(assets/${category.icon})`;
-                    categoryCard.innerHTML = `<div class="category-name">${category.name}</div>`;
-                    
-                    categoryCard.addEventListener('click', () => {
-                        // Remove active class from all cards
-                        document.querySelectorAll('.category-card').forEach(card => {
-                            card.classList.remove('active');
-                        });
-                        
-                        // Add active class to clicked card
-                        categoryCard.classList.add('active');
-                        
-                        // Update selected category title
-                        const selectedCategoryElement = document.getElementById('selected-category');
-                        if (selectedCategoryElement) {
-                            selectedCategoryElement.textContent = `${category.name} Prices`;
-                        }
-                        
-                        // Populate price table
-                        populatePriceTable(category.items);
-                    });
-                    
-                    // Activate first category by default
-                    if (index === 0) {
-                        categoryCard.classList.add('active');
-                        const selectedCategoryElement = document.getElementById('selected-category');
-                        if (selectedCategoryElement) {
-                            selectedCategoryElement.textContent = `${category.name} Prices`;
-                        }
-                        populatePriceTable(category.items);
-                    }
-                    
-                    categoriesContainer.appendChild(categoryCard);
-                });
-            } catch (error) {
-                console.error('Error loading data:', error);
-                // Fallback data if JSON fails to load
-                loadFallbackData();
-            }
-        }
-
-        // Fallback data
-        function loadFallbackData() {
-            const fallbackData = {
-                categories: [
-                    {
-                        "name": "Netflix",
-                        "icon": "netflix-icon.png",
-                        "items": [
-                            {"name": "Netflix Premium 1 Month", "description": "4K UHD, 4 screens", "price": "Rp 45,000"}
-                        ]
-                    },
-                    {
-                        "name": "Viu",
-                        "icon": "viu-icon.png",
-                        "items": [
-                            {"name": "Viu Premium 1 Month", "description": "No ads, HD quality", "price": "Rp 30,000"}
-                        ]
-                    }
-                ]
-            };
-            
-            // Use the same population logic with fallback data
-            const categoriesContainer = document.getElementById('categories');
-            if (categoriesContainer) {
-                categoriesContainer.innerHTML = '';
-                
-                fallbackData.categories.forEach((category, index) => {
-                    const categoryCard = document.createElement('div');
-                    categoryCard.className = 'category-card';
-                    categoryCard.style.backgroundImage = `url(assets/${category.icon})`;
-                    categoryCard.innerHTML = `<div class="category-name">${category.name}</div>`;
-                    
-                    categoryCard.addEventListener('click', () => {
-                        document.querySelectorAll('.category-card').forEach(card => {
-                            card.classList.remove('active');
-                        });
-                        categoryCard.classList.add('active');
-                        
-                        const selectedCategoryElement = document.getElementById('selected-category');
-                        if (selectedCategoryElement) {
-                            selectedCategoryElement.textContent = `${category.name} Prices`;
-                        }
-                        populatePriceTable(category.items);
-                    });
-                    
-                    if (index === 0) {
-                        categoryCard.classList.add('active');
-                        const selectedCategoryElement = document.getElementById('selected-category');
-                        if (selectedCategoryElement) {
-                            selectedCategoryElement.textContent = `${category.name} Prices`;
-                        }
-                        populatePriceTable(category.items);
-                    }
-                    
-                    categoriesContainer.appendChild(categoryCard);
-                });
-            }
-        }
-
-        // Populate price table
-        function populatePriceTable(items) {
-            const tableBody = document.querySelector('#price-table tbody');
-            if (!tableBody) {
-                console.error('Price table body not found');
-                return;
-            }
-            
-            tableBody.innerHTML = '';
-            
-            if (!items || items.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="3" style="text-align: center;">No items available</td>`;
-                tableBody.appendChild(row);
-                return;
-            }
-            
-            items.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.name || 'N/A'}</td>
-                    <td>${item.description || 'No description'}</td>
-                    <td>${item.price || 'Rp 0'}</td>
-                `;
-                
-                // Add click event to show confirmation modal
-                row.addEventListener('click', () => {
-                    showConfirmationModal(item);
-                });
-                
-                tableBody.appendChild(row);
-            });
         }
 
         // Carousel functions
@@ -1233,61 +1227,18 @@
             const categories = document.querySelector('.categories');
             if (!categories) return;
             
-            const scrollAmount = 250;
             categories.scrollBy({
-                left: direction * scrollAmount,
+                left: direction * 250,
                 behavior: 'smooth'
             });
         }
-        // Tambahkan loading state
-        function showLoading() {
-            document.getElementById('price-table').innerHTML = `
-                <div class="loading-state">
-                    <i class="fas fa-spinner fa-spin"></i> Loading data...
-                </div>
-            `;
-        }
-        
-        // Error handling enhanced
-        async function loadData() {
-            showLoading();
-            try {
-                const response = await fetch('data.json');
-                if (!response.ok) throw new Error('Server error');
-                const data = await response.json();
-                renderData(data);
-            } catch (error) {
-                showErrorUI();
-                console.error("Error:", error);
-            }
-        }
-        
-        // WhatsApp dengan editable message
-        function openWhatsApp(message) {
-            const defaultMsg = `Halo KaivyStore, saya ingin memesan:`;
-            const encodedMsg = encodeURIComponent(`${defaultMsg}\n\n${message}`);
-            window.open(`https://wa.me/6289656737562?text=${encodedMsg}`, '_blank');
-        }
 
-        // Tambahkan breadcrumb
-        function updateBreadcrumb(category) {
-            document.getElementById('breadcrumb').innerHTML = `
-                <a href="#">Home</a> > 
-                <a href="#">${category}</a>
-            `;
-        }
-        
-        // Mobile-friendly scroll
-        function initCategoryScroll() {
-            if (window.innerWidth < 768) {
-                document.querySelector('.categories').style.scrollSnapType = 'x mandatory';
+        // Close modal when clicking outside
+        document.getElementById('confirmationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
-        }
-        
-        // Optimasi carousel
-        let carouselInterval = setInterval(() => {
-            moveCarousel(1);
-        }, 7000); // Dari 5000ms        
+        });
     </script>
 </body>
 </html>
