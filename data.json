@@ -4,46 +4,21 @@
             "name": "Netflix",
             "icon": "netflix.png",
             "items": [
+                
                 {
-                    "name": "Netflix Premium 1 Month",
-                    "description": "4K UHD, 4 screens",
-                    "price": "Rp 45,000"
+                    "name": "Netflix 1P2U 1B",
+                    "description": "Netflix Sharing, Hanya boleh login satu device",
+                    "price": "Rp 25,000"
                 },
                 {
-                    "name": "Netflix Premium 3 Months",
-                    "description": "4K UHD, 4 screens",
-                    "price": "Rp 120,000"
-                }
-            ]
-        },
-        {
-            "name": "Netflix",
-            "icon": "netflix.png",
-            "items": [
-                {
-                    "name": "Netflix Premium 1 Month",
-                    "description": "4K UHD, 4 screens",
-                    "price": "Rp 45,000"
+                    "name": "Netflix 1P1U 1B",
+                    "description": "4K UHD, Hanya boleh login satu device",
+                    "price": "Rp 35,000"
                 },
                 {
-                    "name": "Netflix Premium 3 Months",
-                    "description": "4K UHD, 4 screens",
-                    "price": "Rp 120,000"
-                }
-            ]
-        },{
-            "name": "Netflix",
-            "icon": "netflix.png",
-            "items": [
-                {
-                    "name": "Netflix Premium 1 Month",
-                    "description": "4K UHD, 4 screens",
+                    "name": "Netflix Private 1 Bulan",
+                    "description": "4K UHD, Private 1B",
                     "price": "Rp 45,000"
-                },
-                {
-                    "name": "Netflix Premium 3 Months",
-                    "description": "4K UHD, 4 screens",
-                    "price": "Rp 120,000"
                 }
             ]
         },
@@ -52,9 +27,9 @@
             "icon": "viu.png",
             "items": [
                 {
-                    "name": "Viu Premium 1 Month",
-                    "description": "No ads, HD quality",
-                    "price": "Rp 30,000"
+                    "name": "Viu Premium 1 Bulan",
+                    "description": "No ads, HD quality, Login 1 Device",
+                    "price": "Rp 20,000"
                 }
             ]
         },
@@ -63,9 +38,9 @@
             "icon": "loklok.png",
             "items": [
                 {
-                    "name": "Loklok VIP 1 Month",
-                    "description": "Full access to all content",
-                    "price": "Rp 25,000"
+                    "name": "Loklok VIP 1 Bulan",
+                    "description": "Full access, Login 1 Device",
+                    "price": "Rp 15,000"
                 }
             ]
         },
@@ -74,9 +49,9 @@
             "icon": "canva.png",
             "items": [
                 {
-                    "name": "Canva Pro 1 Month",
+                    "name": "Canva Pro 1 Bulan",
                     "description": "Full access to Pro features",
-                    "price": "Rp 40,000"
+                    "price": "Rp 20,000"
                 }
             ]
         },
