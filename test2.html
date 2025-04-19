@@ -259,11 +259,26 @@
             letter-spacing: 2px;
         }
 
+        /* Perbaikan kontras dan hierarki */
         .info-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            padding: 0 1rem;
+            color: #e0e0e0; /* Dari #cccccc */
+            font-size: 1.1rem; /* Dari 0.9rem */
+            line-height: 1.8; /* Dari 1.4 */
+        }
+        /* Gradient border modern */
+        .cyber-table {
+            border: 1px solid transparent;
+            background: 
+                linear-gradient(var(--secondary-bg), var(--secondary-bg)) padding-box,
+                linear-gradient(135deg, var(--accent-color), var(--accent-secondary)) border-box;
+        }
+        
+        /* Sosial media lebih visible */
+        .social-icon {
+            font-size: 1.5rem; /* Dari 1.2rem */
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
         }
 
         /* Category Cards */
@@ -828,6 +843,21 @@
                 width: 100%;
             }
         }
+        /* Konsistensi hover state */
+        .category-card, .cyber-table tr, .order-btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        /* Animasi lebih subtle */
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        /* Feedback sentuh */
+        button:active, a:active {
+            transform: scale(0.98);
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -1209,6 +1239,55 @@
                 behavior: 'smooth'
             });
         }
+        // Tambahkan loading state
+        function showLoading() {
+            document.getElementById('price-table').innerHTML = `
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i> Loading data...
+                </div>
+            `;
+        }
+        
+        // Error handling enhanced
+        async function loadData() {
+            showLoading();
+            try {
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('Server error');
+                const data = await response.json();
+                renderData(data);
+            } catch (error) {
+                showErrorUI();
+                console.error("Error:", error);
+            }
+        }
+        
+        // WhatsApp dengan editable message
+        function openWhatsApp(message) {
+            const defaultMsg = `Halo KaivyStore, saya ingin memesan:`;
+            const encodedMsg = encodeURIComponent(`${defaultMsg}\n\n${message}`);
+            window.open(`https://wa.me/6289656737562?text=${encodedMsg}`, '_blank');
+        }
+
+        // Tambahkan breadcrumb
+        function updateBreadcrumb(category) {
+            document.getElementById('breadcrumb').innerHTML = `
+                <a href="#">Home</a> > 
+                <a href="#">${category}</a>
+            `;
+        }
+        
+        // Mobile-friendly scroll
+        function initCategoryScroll() {
+            if (window.innerWidth < 768) {
+                document.querySelector('.categories').style.scrollSnapType = 'x mandatory';
+            }
+        }
+        
+        // Optimasi carousel
+        let carouselInterval = setInterval(() => {
+            moveCarousel(1);
+        }, 7000); // Dari 5000ms        
     </script>
 </body>
 </html>
