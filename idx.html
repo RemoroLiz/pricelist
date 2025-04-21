@@ -331,6 +331,7 @@
             display: none;
         }
 
+        /* Category Cards - Modified for outer glow effect */
         .category-card {
             min-width: 160px;
             height: 200px;
@@ -344,10 +345,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Diubah dari hidden ke visible */
             border: 2px solid transparent;
             background-color: rgba(255, 133, 162, 0.05);
             padding: 1rem;
+            margin: 5px; /* Memberi ruang untuk glow */
         }
 
         .category-card::before {
@@ -359,18 +361,18 @@
             bottom: 0;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
             z-index: 1;
+            border-radius: 8px;
         }
 
-        /* Neon Border Animation */
+        /* Outer Neon Glow Effect */
         .category-card::after {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 10px;
-            border: 2px solid transparent;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 12px; /* Lebih besar dari card */
             background: linear-gradient(45deg, 
                 transparent, 
                 transparent, 
@@ -379,10 +381,12 @@
                 transparent, 
                 transparent);
             background-size: 400% 400%;
-            z-index: 2;
+            z-index: -1; /* Di belakang card */
             opacity: 0;
             transition: opacity 0.3s ease;
             animation: neonBorder 3s linear infinite;
+            filter: blur(4px);
+            box-shadow: 0 0 15px rgba(255, 133, 162, 0.6);
         }
 
         @keyframes neonBorder {
@@ -396,17 +400,16 @@
 
         .category-card:hover::after {
             opacity: 1;
-            box-shadow: 0 0 15px rgba(255, 133, 162, 0.6);
         }
 
         .category-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--neon-glow-strong);
         }
 
         .category-card.active {
             border-color: var(--accent-color);
-            box-shadow: var(--neon-glow-strong);
+            box-shadow: 0 0 0 2px var(--accent-color), 
+                        var(--neon-glow-strong);
         }
 
         .category-name {
