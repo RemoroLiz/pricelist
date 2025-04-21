@@ -6,19 +6,19 @@
             "items": [
                 
                 {
-                    "name": "Netflix 1P2U 1B",
-                    "description": "Netflix Sharing, Hanya boleh login satu device",
-                    "price": "Rp 25,000"
+                    "name": "Netflix 1p1u 1Minggu",
+                    "description": "4K UHD, Hanya boleh login satu device, Bisa Limit",
+                    "price": "Rp 15,000"
                 },
                 {
-                    "name": "Netflix 1P1U 1B",
-                    "description": "4K UHD, Hanya boleh login satu device",
-                    "price": "Rp 35,000"
+                    "name": "Netflix 1p1u 1Bulan",
+                    "description": "4K UHD, Hanya boleh login satu device, Bisa Limit",
+                    "price": "Rp 34,000"
                 },
                 {
                     "name": "Netflix Private 1 Bulan",
-                    "description": "4K UHD, Private 1B",
-                    "price": "Rp 45,000"
+                    "description": "4K UHD, Private 1B, Login 5-10 Device",
+                    "price": "Rp 140,000"
                 }
             ]
         },
@@ -28,6 +28,11 @@
             "items": [
                 {
                     "name": "Viu Premium 1 Bulan",
+                    "description": "No ads, HD quality, Login 1 Device",
+                    "price": "Rp 7,000"
+                },
+                {
+                    "name": "Viu Premium 6 Bulan",
                     "description": "No ads, HD quality, Login 1 Device",
                     "price": "Rp 20,000"
                 }
@@ -51,7 +56,12 @@
                 {
                     "name": "Canva Pro 1 Bulan",
                     "description": "Full access to Pro features",
-                    "price": "Rp 20,000"
+                    "price": "Rp 5,000"
+                },
+                {
+                    "name": "Canva Pro 1 Tahun",
+                    "description": "Full access to Pro features",
+                    "price": "Rp 25,000"
                 }
             ]
         },
